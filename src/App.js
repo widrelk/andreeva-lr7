@@ -68,6 +68,30 @@ function App() {
     loadImageToCanvas(canvas, mod.flat(), newWidth, newHeiht);
   }, [coeff]);
 
+  useEffect(() => {
+    if (!pixelsData) {
+      return;
+    }
+    
+    const newWidth = Math.round(picDimensions.width * coeff);
+    const newHeiht = Math.round(picDimensions.height * coeff);
+
+    console.log(`new size: ${newWidth}x${newHeiht}`)
+
+    let mod = [];
+    for (let h = 0; h < newHeiht; h++) {
+      let y = Math.round(h / coeff);
+      for(let w = 0; w < newWidth; w++) {
+        let x = Math.round(w / coeff);
+        mod.push(pixelsData[y * picDimensions.width + x])
+        
+      }
+    }
+
+    const canvas = document.getElementById('app__mod-image-canvas');
+    loadImageToCanvas(canvas, mod.flat(), newWidth, newHeiht);
+  }, [coeff]);
+
   return (
     <div className="App">
       <header className="App-header">
